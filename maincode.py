@@ -49,6 +49,7 @@ player_array = [Team1_Player1, Team1_Player2, Team1_Player3, Team1_Player4, Team
 Team1_Player8, Team1_Player9, Team1_Player10, Team1_Player11] # player array
 
 player_sentiment = [] # place holder array for players senitment scores
+player_tweets = [] # palce holder for the tweets for each player that match threshold
 
 ### setting date range, ideally run day after the game
 
@@ -62,7 +63,7 @@ def sentiment_element(element): # define sorting function
 
 for i in player_array: # loop through each player
     search_words = [i, Team1, Team2] # search array for each player
-    tweets = tweepy.Cursor(api.search,search_words,lang="en",since=date_since).items(50) # find tweets for each player
+    tweets = tweepy.Cursor(api.search,search_words,lang="en",since=date_since).items(25) # find tweets for each player
     tweet_array = []
     sentiment_array = []
 
@@ -70,10 +71,12 @@ for i in player_array: # loop through each player
         tweet_array.append(tweet.text)
         sentiment_array.append(TextBlob(tweet.text).sentiment) # append the sentiment into array
 
+    player_tweets.append(tweet_array) # create array of all of the respective player tweets
+
     sentiment_count = 0 # want to only count sentiments that are subjective
     sentiment_total = 0 # keep track for average
     for sentiment in sentiment_array:
-        if (sentiment[1] >= 0.25):
+        if (sentiment[1] >= 0.10): # set threshold for objectivity
             sentiment_count = sentiment_count + 1
             sentiment_total = sentiment_total + sentiment[0]
 
