@@ -2,10 +2,6 @@ import tweepy
 from textblob import TextBlob
 import numpy as np
 
-consumer_key =
-consumer_secret =
-access_token =
-access_token_secret =
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
@@ -14,54 +10,62 @@ api = tweepy.API(auth,wait_on_rate_limit=True)
 
 ### initialization of team names and starting 11 + subs from the game
 
-Team1 = "England"
-Team2 = "Belgium"
+Team1 = "Chelsea"
+Team2 = "Newcastle"
 
 #Team1
-Team1_Player1 = "Grealish"
-Team1_Player2 = "Sancho"
-Team1_Player3 = "Dier"
-Team1_Player4 = "Walker"
-Team1_Player5 = "Mings"
-Team1_Player6 = "Trippier"
-Team1_Player7 = "Rice"
-Team1_Player8 = "Henderson"
-Team1_Player9 = "Chilwell"
-Team1_Player10 = "Mount"
-Team1_Player11 = "Kane"
+Team1_Player1 = "Mendy"
+Team1_Player2 = "Rudiger"
+Team1_Player3 = "Zouma"
+Team1_Player4 = "Chilwell"
+Team1_Player5 = "James"
+Team1_Player6 = "Kante"
+Team1_Player7 = "Mount"
+Team1_Player8 = "Kovacic"
+Team1_Player9 = "Abraham"
+Team1_Player10 = "Werner"
+Team1_Player11 = "Ziyech"
 
 #Team2
-Team2_Player1 = ""
-Team2_Player2 = ""
-Team2_Player3 = ""
-Team2_Player4 = ""
-Team2_Player5 = ""
-Team2_Player6 = ""
-Team2_Player7 = ""
-Team2_Player8 = ""
-Team2_Player9 = ""
-Team2_Player10 = ""
-Team2_Player11 = ""
+Team2_Player1 = "Joelinton"
+Team2_Player2 = "Saint-Maximin"
+Team2_Player3 = "Hayden"
+Team2_Player4 = "Longstaff"
+Team2_Player5 = "Murphy"
+Team2_Player6 = "Lewis"
+Team2_Player7 = "Clark"
+Team2_Player8 = "Lascelles"
+Team2_Player9 = "Fernandez"
+Team2_Player10 = "Manquillo"
+Team2_Player11 = "Darlow"
 
-player_array = [Team1_Player1, Team1_Player2, Team1_Player3, Team1_Player4, Team1_Player5, Team1_Player6, Team1_Player7,
-Team1_Player8, Team1_Player9, Team1_Player10, Team1_Player11] # player array
+Team1_player_array = [Team1_Player1, Team1_Player2, Team1_Player3, Team1_Player4, Team1_Player5, Team1_Player6, Team1_Player7,
+Team1_Player8, Team1_Player9, Team1_Player10, Team1_Player11] # player array for Team 1
 
-player_sentiment = [] # place holder array for players senitment scores
-player_tweets = [] # palce holder for the tweets for each player that match threshold
+Team2_player_array = [Team2_Player1, Team2_Player2, Team2_Player3, Team2_Player4, Team2_Player5, Team2_Player6, Team2_Player7,
+Team2_Player8, Team2_Player9, Team2_Player10, Team2_Player11] # player array for Team 2
+
+Team1_player_sentiment = [] # place holder array for players senitment scores
+Team1_player_tweets = [] # place holder for the tweets for each player that match threshold
+
+Team2_player_sentiment = [] # place holder array for players senitment scores
+Team2_player_tweets = [] # place holder for the tweets for each player that match threshold
 
 ### setting date range, ideally run day after the game
 
-date_since = "2020-11-12"
-date_until = "2020-11-19"
+date_since = "2020-11-21"
+date_until = "2020-11-22"
 
 ### code to find sentiment
 
 def sentiment_element(element): # define sorting function
     return element[1]
 
-for i in player_array: # loop through each player
+### loop for Team 1
+
+for i in Team1_player_array: # loop through each player
     search_words = [i, Team1, Team2] # search array for each player
-    tweets = tweepy.Cursor(api.search,search_words,lang="en",since=date_since).items(25) # find tweets for each player
+    tweets = tweepy.Cursor(api.search,search_words,lang="en",since=date_since).items(100) # find tweets for each player
     tweet_array = []
     sentiment_array = []
 
@@ -69,7 +73,34 @@ for i in player_array: # loop through each player
         tweet_array.append(tweet.text)
         sentiment_array.append(TextBlob(tweet.text).sentiment) # append the sentiment into array
 
-    player_tweets.append(tweet_array) # create array of all of the respective player tweets
+    Team1_player_tweets.append(tweet_array) # create array of all of the respective player tweets
+
+    sentiment_count = 0 # want to only count sentiments that are subjective
+    sentiment_total = 0 # keep track for average
+    for sentiment in sentiment_array:
+        if (sentiment[1] >= 0.10): # set threshold for objectivity, 0 = objective, 1 = subjective
+            sentiment_count = sentiment_count + 1
+            sentiment_total = sentiment_total + sentiment[0]
+
+    if (sentiment_total == 0):
+        Team1_player_sentiment.append([i,0,sentiment_count]) # handle 0 count
+    else:
+        Team1_player_sentiment.append([i,sentiment_total/sentiment_count,sentiment_count])
+
+
+### loop for Team 2
+
+for i in Team2_player_array: # loop through each player
+    search_words = [i, Team1, Team2] # search array for each player
+    tweets = tweepy.Cursor(api.search,search_words,lang="en",since=date_since).items(100) # find tweets for each player
+    tweet_array = []
+    sentiment_array = []
+
+    for tweet in tweets:
+        tweet_array.append(tweet.text)
+        sentiment_array.append(TextBlob(tweet.text).sentiment) # append the sentiment into array
+
+    Team2_player_tweets.append(tweet_array) # create array of all of the respective player tweets
 
     sentiment_count = 0 # want to only count sentiments that are subjective
     sentiment_total = 0 # keep track for average
@@ -78,8 +109,17 @@ for i in player_array: # loop through each player
             sentiment_count = sentiment_count + 1
             sentiment_total = sentiment_total + sentiment[0]
 
-    player_sentiment.append([i,sentiment_total/sentiment_count,sentiment_count])
-    player_sentiment.sort(key=sentiment_element)
+
+    if (sentiment_total == 0):
+        Team2_player_sentiment.append([i,0,sentiment_count]) # handle 0 count
+    else:
+        Team2_player_sentiment.append([i,sentiment_total/sentiment_count,sentiment_count])
+
+
+### sort each senitment array
+
+Team1_player_sentiment.sort(key=sentiment_element)
+Team2_player_sentiment.sort(key=sentiment_element)
 
 
 
