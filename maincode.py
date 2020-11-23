@@ -1,6 +1,8 @@
 import tweepy
 from textblob import TextBlob
 import numpy as np
+import matplotlib.pyplot as plt
+plt.ion()
 
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
@@ -8,7 +10,7 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth,wait_on_rate_limit=True)
 
-### initialization of team names and starting 11 + subs from the game
+### initialization of team names and starting 11 from the game
 
 Team1 = "Chelsea"
 Team2 = "Newcastle"
@@ -56,12 +58,52 @@ Team2_player_tweets = [] # place holder for the tweets for each player that matc
 date_since = "2020-11-21"
 date_until = "2020-11-22"
 
-### code to find sentiment
+### implementiation for specific terms relating to the game, perhaps for ranking
+
+game_terms = ['pass','goal','defend','dribble']
+
+### code to sort by sentiment rating
 
 def sentiment_element(element): # define sorting function
     return element[1]
 
+
+### implementation ranking function to weight?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### implementation to find highest or lowest sentiment tweets
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ### loop for Team 1
+
+
+# note for self, maybe want to specify POS and relationship to avoid bad classification
+
 
 for i in Team1_player_array: # loop through each player
     search_words = [i, Team1, Team2] # search array for each player
@@ -116,11 +158,49 @@ for i in Team2_player_array: # loop through each player
         Team2_player_sentiment.append([i,sentiment_total/sentiment_count,sentiment_count])
 
 
-### sort each senitment array
+### sort each senitment array and organize for plotting
 
 Team1_player_sentiment.sort(key=sentiment_element)
 Team2_player_sentiment.sort(key=sentiment_element)
 
+# create index for team 1
+Team1_Index = []
+Team1_Sentiment = []
+for i in Team1_player_sentiment:
+    Team1_Index.append(i[0])
+    Team1_Sentiment.append(round(i[1],3))
+
+# create index for team 2
+Team2_Index = []
+Team2_Sentiment = []
+for i in Team2_player_sentiment:
+    Team2_Index.append(i[0])
+    Team2_Sentiment.append(round(i[1],3))
+
+
+### create bar graphs displaying data and then save down
+
+def plot_bar_team1():
+    fig, ax = plt.subplots()
+    ax.barh(Team1_Index, Team1_Sentiment, color = "lightblue")
+    plt.title(Team1 + ' Sentiment')
+    plt.xlabel('Sentiment Score [-1,1]')
+    for i, v in enumerate(Team1_Sentiment):
+        ax.text(v, i, " " + str(v), color='black', va = 'center', fontweight='bold')
+    plt.savefig('team1.png')
+
+plot_bar_team1()
+
+def plot_bar_team2():
+    fig, ax = plt.subplots()
+    ax.barh(Team2_Index, Team2_Sentiment, color = "orange")
+    plt.title(Team2 + ' Sentiment')
+    plt.xlabel('Sentiment Score [-1,1]')
+    for i, v in enumerate(Team2_Sentiment):
+        ax.text(v, i, " " + str(v), color='black', va = 'center', fontweight='bold')
+    plt.savefig('team2.png')
+
+plot_bar_team2()
 
 
 
