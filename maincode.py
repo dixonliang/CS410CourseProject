@@ -1,8 +1,10 @@
-import tweepy
-from textblob import TextBlob
-import numpy as np
-import matplotlib.pyplot as plt
+import tweepy # import tweepy aka Twitter API
+from textblob import TextBlob # import textblob
+import numpy as np # import numpy
+from rank_bm25 import BM25Okapi # import BM25
+import matplotlib.pyplot as plt # import plotting
 plt.ion()
+
 
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
