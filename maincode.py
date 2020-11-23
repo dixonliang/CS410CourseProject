@@ -5,8 +5,6 @@ from rank_bm25 import BM25Okapi # import BM25
 import matplotlib.pyplot as plt # import plotting
 plt.ion()
 
-
-
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
