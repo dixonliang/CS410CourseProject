@@ -1,10 +1,14 @@
 import tweepy # import tweepy aka Twitter API
-from textblob import TextBlob # import textblob
+from textblob import TextBlob # import textblob aka NLP package
 import numpy as np # import numpy
 from rank_bm25 import BM25Okapi # import BM25
 import matplotlib.pyplot as plt # import plotting
 plt.ion()
 
+consumer_key = ""
+consumer_secret = ""
+access_token = ""
+access_token_secret = ""
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
@@ -42,6 +46,8 @@ team2_Player9 = "Fernandez"
 team2_Player10 = "Manquillo"
 team2_Player11 = "Darlow"
 
+total_players = 11
+
 team1_player_array = [team1_Player1, team1_Player2, team1_Player3, team1_Player4, team1_Player5, team1_Player6, team1_Player7,
 team1_Player8, team1_Player9, team1_Player10, team1_Player11] # player array for Team 1
 
@@ -49,10 +55,12 @@ team2_player_array = [team2_Player1, team2_Player2, team2_Player3, team2_Player4
 team2_Player8, team2_Player9, team2_Player10, team2_Player11] # player array for Team 2
 
 team1_player_sentiment = [] # place holder array for players senitment scores
-team1_player_tweets = [] # place holder for the tweets for each player that match threshold
+team1_player_tweets = [] # place holder for the tweets for each player
+team1_player_combined = [] # place holder for the tweets for each player and sentiment
 
 team2_player_sentiment = [] # place holder array for players senitment scores
 team2_player_tweets = [] # place holder for the tweets for each player that match threshold
+team2_player_combined = [] # place holder for the tweets for each player and sentiment
 
 ### define the number of tweets we want to sort for and subjective threshold
 
@@ -64,31 +72,15 @@ threshold = 0.10 # threshold for subjectivity [0,1]
 date_since = "2020-11-21"
 date_until = "2020-11-22"
 
-### implementiation for specific terms relating to the game, perhaps for ranking in BM25Okapi
-
-terms = ["score","assist"] # want to weight the sentiment for these terms more than usual, specifically scoring a goal or assisting a goal should be weighted more
 
 ### code to sort by sentiment rating
 
 def sentiment_element(element): # define sorting function
     return element[1]
 
+### PART1: Basic Sentiment Analysis without any adjustments
 
-### implementation of BM25Okapi to rank relevant of tweets in relation the game
-
-def rank_scores(corpus, terms):
-    bm25 = BM25Okapi(corpus)
-    tweet_scores = bm25.get_scores(terms)
-    top_10_tweets = bm25.get_top_n(terms, corpus, n=10)
-    return tweet_scores
-
-def rank_top(corpus, terms):
-    bm25 = BM25Okapi(corpus)
-    top_10_tweets = bm25.get_top_n(terms, corpus, n=10)
-    return top_10_tweets
-
-
-### loop for Team 1 to find sentiment
+### Loop for Team 1 to find sentiment
 
 
 for i in team1_player_array: # loop through each player
@@ -107,7 +99,8 @@ for i in team1_player_array: # loop through each player
 
     combined_array.sort(key=sentiment_element)  # sort tweet array by sentiment (remember that lowest sentiment is first)
 
-    team1_player_tweets.append(combined_array) # create array of all of the respective player tweets, which are now sorted by sentiment
+    team1_player_tweets.append(tweet_array) # create array of just the tweets
+    team1_player_combined.append(combined_array) # create array of all of the respective player tweets, which are now sorted by sentiment
 
     sentiment_count = 0 # want to only count sentiments that are subjective
     sentiment_total = 0 # keep track for average
@@ -122,7 +115,7 @@ for i in team1_player_array: # loop through each player
         team1_player_sentiment.append([i,sentiment_total/sentiment_count,sentiment_count])
 
 
-### loop for Team 2 to find sentiment
+### Loop for Team 2 to find sentiment
 
 for i in team2_player_array: # loop through each player
     search_words = [i, team2] # search array for each player
@@ -140,7 +133,8 @@ for i in team2_player_array: # loop through each player
 
     combined_array.sort(key=sentiment_element)  # sort tweet array by sentiment (remember that lowest sentiment is first)
 
-    team2_player_tweets.append(combined_array) # create array of all of the respective player tweets, which are now sorted by sentiment
+    team2_player_tweets.append(tweet_array) # create array of just the tweets
+    team2_player_combined.append(combined_array) # create array of all of the respective player tweets, which are now sorted by sentiment
 
     sentiment_count = 0 # want to only count sentiments that are subjective
     sentiment_total = 0 # keep track for average
@@ -187,29 +181,156 @@ for i in team2_player_sentiment:
     team2_Sentiment.append(round(i[1],3))
 
 
-### create bar graphs displaying data and then save down
+### create bar graphs for Part 1 displaying data and then save down
 
-def plot_bar_team1():
+def plot_bar_team1_sentiment():
     fig, ax = plt.subplots()
     ax.barh(team1_Index, team1_Sentiment, color = "lightblue")
     plt.title(team1 + ' Sentiment')
     plt.xlabel('Sentiment Score [-1,1]')
     for i, v in enumerate(team1_Sentiment):
         ax.text(v, i, " " + str(v), color='black', va = 'center', fontweight='bold')
-    plt.savefig('team1.png')
+    plt.savefig('team1_sentiment.png')
 
-plot_bar_team1()
+plot_bar_team1_sentiment()
 
-def plot_bar_team2():
+def plot_bar_team2_sentiment():
     fig, ax = plt.subplots()
     ax.barh(team2_Index, team2_Sentiment, color = "orange")
     plt.title(team2 + ' Sentiment')
     plt.xlabel('Sentiment Score [-1,1]')
     for i, v in enumerate(team2_Sentiment):
         ax.text(v, i, " " + str(v), color='black', va = 'center', fontweight='bold')
-    plt.savefig('team2.png')
+    plt.savefig('team2_sentiment.png')
 
-plot_bar_team2()
+plot_bar_team2_sentiment()
+
+
+### PART2 Using BM25Okapi with user generated terms for context into sentiment
+
+
+### implementiation for specific terms relating to the game, ranking for BM25Okapi
+
+positive_terms = "assist good excellent great" # search queries, positive terms
+negative_terms = "poor bad miss own awful" # negative terms
+
+
+### implementation of BM25Okapi to rank relevant of tweets in relation the game
+
+def rank_scores(corpus, terms): # give each tweet a score based on query
+    bm25 = BM25Okapi(corpus)
+    tweet_scores = bm25.get_scores(terms)
+    return tweet_scores
+
+def rank_top(corpus, terms): # show the top 10 based on query
+    bm25 = BM25Okapi(corpus)
+    top_10_tweets = bm25.get_top_n(terms, corpus, n=10)
+    return top_10_tweets
+
+
+### sentiment in relation to using BM25 as context
+
+team1_total_tweets = []
+team2_total_tweets = []
+team1_positive_results = []
+team2_positive_results = []
+team1_negative_results = []
+team2_negative_results = []
+
+for i in range(0,len(team1_player_tweets)):
+    team1_total_tweets = team1_total_tweets + team1_player_tweets[i] # combine all player tweets into one corpus
+    team2_total_tweets = team2_total_tweets + team2_player_tweets[i]
+total_tweets = team1_total_tweets + team2_total_tweets # combine both player tweets into one corpus
+tokenized_tweets = [doc.split(" ") for doc in total_tweets] # tokenize the tweets for function
+
+tokenized_query_positive = positive_terms.split(" ")
+tokenized_query_negative = negative_terms.split(" ")
+
+# positive array
+positive_array = rank_scores(tokenized_tweets,tokenized_query_positive)
+team1_positive_array = positive_array[0:number_of_tweets*total_players] # break into positive array for the two teams for sum
+team2_positive_array = positive_array[number_of_tweets*total_players:len(positive_array)]
+
+# negative array
+negative_array = rank_scores(tokenized_tweets,tokenized_query_negative)
+team1_negative_array = negative_array[0:number_of_tweets*total_players] # break into positive array for the two teams for sum
+team2_negative_array = negative_array[number_of_tweets*total_players:len(negative_array)]
+
+# postive tweets
+team1_positive_results = np.sum(np.reshape(team1_positive_array,(total_players,number_of_tweets)),axis=1) / number_of_tweets
+team2_positive_results = np.sum(np.reshape(team2_positive_array,(total_players,number_of_tweets)),axis=1) / number_of_tweets
+
+# negative tweets
+team1_negative_results = np.sum(np.reshape(team1_negative_array,(total_players,number_of_tweets)),axis=1) / -number_of_tweets
+team2_negative_results = np.sum(np.reshape(team2_negative_array,(total_players,number_of_tweets)),axis=1) / -number_of_tweets
+
+### create bar graphs for Part 2 displaying data and then save down
+
+
+# reshape sum arrays for graphing
+
+team1_positive_results = np.round(np.reshape(team1_positive_results,(1,total_players)).tolist(),3)
+team2_positive_results = np.round(np.reshape(team2_positive_results,(1,total_players)).tolist(),3)
+team1_negative_results = np.round(np.reshape(team1_negative_results,(1,total_players)).tolist(),3)
+team2_negative_results = np.round(np.reshape(team2_negative_results,(1,total_players)).tolist(),3)
+
+
+# team 1 BM25 charts
+
+def plot_bar_team1_BM25positive():
+    fig, ax = plt.subplots()
+    ax.barh(team1_Index, team1_positive_results[0], color = "lightblue")
+    plt.title(team1 + ' BM25 Positive Context' + '\n' + "Terms: " + positive_terms)
+    plt.xlabel('Avg. BM25 Ranking')
+    for i, v in enumerate(team1_positive_results[0]):
+        ax.text(v, i, " " + str(v), color='black', va = 'center', fontweight='bold')
+    plt.savefig('team1_BM25positive.png')
+
+plot_bar_team1_BM25positive()
+
+def plot_bar_team1_BM25negative():
+    fig, ax = plt.subplots()
+    ax.barh(team1_Index, team1_negative_results[0], color = "lightblue")
+    plt.title(team1 + ' BM25 Negative Context' + '\n' + "Terms: " + negative_terms)
+    plt.xlabel('Avg. BM25 Ranking')
+    for i, v in enumerate(team1_negative_results[0]):
+        ax.text(v, i, " " + str(v), color='red', va = 'center', fontweight='bold')
+    plt.savefig('team1_BM25negative.png')
+
+plot_bar_team1_BM25negative()
+
+
+# team 2 BM25 charts
+
+def plot_bar_team2_BM25positive():
+    fig, ax = plt.subplots()
+    ax.barh(team2_Index, team2_positive_results[0], color = "orange")
+    plt.title(team2 + ' BM25 Positive Context' + '\n' + "Terms: " + positive_terms)
+    plt.xlabel('Avg. BM25 Ranking')
+    for i, v in enumerate(team2_positive_results[0]):
+        ax.text(v, i, " " + str(v), color='black', va = 'center', fontweight='bold')
+    plt.savefig('team2_BM25positive.png')
+
+plot_bar_team2_BM25positive()
+
+def plot_bar_team2_BM25negative():
+    fig, ax = plt.subplots()
+    ax.barh(team2_Index, team2_negative_results[0], color = "orange")
+    plt.title(team2 + ' BM25 Negative Context' + '\n' + "Terms: " + negative_terms)
+    plt.xlabel('Avg. BM25 Ranking')
+    for i, v in enumerate(team2_negative_results[0]):
+        ax.text(v, i, " " + str(v), color='red', va = 'center', fontweight='bold')
+    plt.savefig('team2_BM25negative.png')
+
+plot_bar_team2_BM25negative()
+
+
+
+
+
+
+
+
 
 
 
