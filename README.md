@@ -6,8 +6,11 @@ YouTube Demo Link:
 
 Files: 
 Project Proposal.pdf - The initial project proposal. 
+
 Progress Report.pdf - Progress Report as of 11/30/20.
+
 maincode.py - The main source code
+
 demo.ipynb - Empty demo code in Jupyter Notebook
 
 We will be using Tweepy to source tweets from the Twitter API and TextBlob to provide a framework for natural language processing to provide sentiment analysis. In addition, we will use PyPi's implementation of BM25Okapi to provide context of the sentiment analysis.
