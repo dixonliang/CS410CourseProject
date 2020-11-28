@@ -18,6 +18,8 @@ video_demo.ipynb - The demo code / output that was used for the YouTube video tu
 
 demo.ipynb - Empty demo code in Jupyter Notebook for free use
 
+Tweepy Review.docx - Review done on the Tweepy package for the course
+
 team1_sentiment.png - Example sentiment bar chart for Team 1 (new file will be saved down if main code is run)
 team1_BM25positive.png - Example positive BM25 average ranking for Team 1 (new file will be saved down if main code is run)
 team1_BM25negative.png - Example negative BM25 average ranking for Team 1 (new file will be saved down if main code is run)
