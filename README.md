@@ -40,7 +40,7 @@ Packages Needed: To begin, we need several packages installed and imported. Thes
 
 Most importantly, we will need access to the Twitter API, which can be gained by having a Twitter profile. You will be provided four keys of strings of letters and numbers which you will need to enter in the box below: consumer key, consumer secret, access token, access token secret. These will be used in the below code area. 
 
-'''shell
+```shell
 consumer_key = ""
 consumer_secret = ""
 access_token = ""
@@ -50,6 +50,6 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth,wait_on_rate_limit=True)
-''' 
+``` 
 
 #### Game Parameters
