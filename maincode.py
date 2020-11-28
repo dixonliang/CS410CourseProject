@@ -1,3 +1,10 @@
+
+### Sentiment Anaylsis for Soccer Games
+#Author: Dixon Liang
+#Below is the source code, documentation can be found in my GitHub
+
+# import necessary packages
+
 import tweepy # import tweepy aka Twitter API
 from textblob import TextBlob # import textblob aka NLP package
 import numpy as np # import numpy
@@ -5,7 +12,12 @@ from rank_bm25 import BM25Okapi # import BM25
 import matplotlib.pyplot as plt # import plotting
 plt.ion()
 
+#  need Twitter access keys
 
+consumer_key = ""
+consumer_secret = ""
+access_token = ""
+access_token_secret = ""
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
