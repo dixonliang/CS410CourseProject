@@ -1,4 +1,4 @@
-# CS 410 Course Project and Documentation
+# Sentiment Analysis for Soccer Games (CS 410 Course Project) and Documentation
 
 ### Introduction
 
