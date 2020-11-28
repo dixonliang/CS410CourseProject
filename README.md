@@ -32,6 +32,8 @@ Ideally, the result of this code will show the relative sentiment of a player's 
 
 Technically, this code can be used for any soccer game, but given the popularity and language barrier, EPL games are likely to provide the most meaningful results. Adjustments could be made for La Liga or Serie A using Spanish or Italian NLP. Please feel free to reach out as I welcome any collaboration as the code can be improved and applied to different sports or different applications all together :) .
 
+The easiest way to run through this code is by using the provided Jupyter Notebooks. A run through of the source code is provided below. 
+
 ### Code Documentation
 
 #### Introduction 
@@ -53,3 +55,82 @@ api = tweepy.API(auth,wait_on_rate_limit=True)
 ``` 
 
 #### Game Parameters
+
+We will need to set the parameters for the game we are interested in; this includes the two teams names and the starting 11 for each team. 
+
+```shell
+team1 = ""
+team2 = ""
+
+#team1
+team1_Player1 = ""
+team1_Player2 = ""
+team1_Player3 = ""
+team1_Player4 = ""
+team1_Player5 = ""
+team1_Player6 = ""
+team1_Player7 = ""
+team1_Player8 = ""
+team1_Player9 = ""
+team1_Player10 = ""
+team1_Player11 = ""
+
+#team2
+team2_Player1 = ""
+team2_Player2 = ""
+team2_Player3 = ""
+team2_Player4 = ""
+team2_Player5 = ""
+team2_Player6 = ""
+team2_Player7 = ""
+team2_Player8 = ""
+team2_Player9 = ""
+team2_Player10 = ""
+team2_Player11 = ""
+```
+After setting the game parameters, there are a few algorithm paramters we will need to set. 
+
+```shell
+### define the number of tweets we want to sort for and subjective threshold
+
+number_of_tweets = 100 # how many tweets we want to search for
+threshold = 0.10 # threshold for subjectivity [0,1]
+
+### setting date range, ideally run day after the game
+
+date_since = "2020-11-21"
+date_until = "2020-11-22"
+```
+
+
+```shell
+positive_terms = "assist good excellent great" # search queries, positive terms
+negative_terms = "poor bad miss own awful" # negative terms
+```
+
+#### Running the Code
+
+After setting the above parameters, the entire "maincode.py" can be run which will then output the relevant visualizations for this task. 
+
+
+
+
+
+
+#### BM25 Implementation 
+
+
+
+
+
+
+#### Helper Functions 
+
+
+
+
+
+
+
+
+
