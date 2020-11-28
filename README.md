@@ -118,11 +118,22 @@ After setting the above parameters, the entire "maincode.py" can be run which wi
 
 #### Helper Functions 
 
+sentiment_element(element): 
 
 
+#### Output Functions
 
-#### Output
+display_tweets(team, player_number): 
 
+plot_bar_team1_sentiment(): 
+plot_bar_team2_sentiment():
 
+rank_scores(corpus,terms):
+rank_top(corpus,terms):
+
+plot_bar_team1_BM25positive():
+plot_bar_team2_BM25positive():
+plot_bar_team1_BM25negative():
+plot_bar_team2_BM25negative():
 
 
