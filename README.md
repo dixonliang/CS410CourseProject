@@ -114,16 +114,6 @@ After setting the above parameters, the entire "maincode.py" can be run which wi
 
 
 
-
-
-
-#### BM25 Implementation 
-
-
-
-
-
-
 #### Helper Functions 
 
 
