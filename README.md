@@ -2,7 +2,7 @@
 
 ### Introduction
 
-This is the repo for my course project for CS 410 Text Information Systems for my Masters in Computer Science at University of Illinois Urbana-Champaign. The main idea of this repo is to provide the code, documentaion, and demo for a basic sentiment analysis for soccer games using Python. The easiest way to use this code is to use the Jupyter Notebook demo in this repo. A video tutorial on Youtube is also provided. The source code is available as well. Please feel free to reach out to me if you would like to collaborate :) 
+This is the repo for my course project for CS 410 Text Information Systems for my Masters in Computer Science at University of Illinois Urbana-Champaign. The main idea of this repo is to provide the code, documentaion, and demo for a basic sentiment analysis for soccer games using Python, Tweepy, TextBlob, and BM25Okapi. The easiest way to use this code is to use the Jupyter Notebook demo in this repo. A video tutorial on Youtube is also provided. The source code is available as well. Please feel free to reach out to me if you would like to collaborate :) 
 
 #### Files 
 
