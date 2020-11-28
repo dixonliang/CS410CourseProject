@@ -26,34 +26,36 @@ api = tweepy.API(auth,wait_on_rate_limit=True)
 
 ### initialization of team names and starting 11 from the game
 
-team1 = "Chelsea"
-team2 = "Newcastle"
+# enter the team names in the quotes as a string, same applies for the players
+
+team1 = ""
+team2 = ""
 
 #team1
-team1_Player1 = "Mendy"
-team1_Player2 = "Rudiger"
-team1_Player3 = "Zouma"
-team1_Player4 = "Chilwell"
-team1_Player5 = "James"
-team1_Player6 = "Kante"
-team1_Player7 = "Mount"
-team1_Player8 = "Kovacic"
-team1_Player9 = "Abraham"
-team1_Player10 = "Werner"
-team1_Player11 = "Ziyech"
+team1_Player1 = ""
+team1_Player2 = ""
+team1_Player3 = ""
+team1_Player4 = ""
+team1_Player5 = ""
+team1_Player6 = ""
+team1_Player7 = ""
+team1_Player8 = ""
+team1_Player9 = ""
+team1_Player10 = ""
+team1_Player11 = ""
 
 #team2
-team2_Player1 = "Joelinton"
-team2_Player2 = "Saint-Maximin"
-team2_Player3 = "Hayden"
-team2_Player4 = "Longstaff"
-team2_Player5 = "Murphy"
-team2_Player6 = "Lewis"
-team2_Player7 = "Clark"
-team2_Player8 = "Lascelles"
-team2_Player9 = "Fernandez"
-team2_Player10 = "Manquillo"
-team2_Player11 = "Darlow"
+team2_Player1 = ""
+team2_Player2 = ""
+team2_Player3 = ""
+team2_Player4 = ""
+team2_Player5 = ""
+team2_Player6 = ""
+team2_Player7 = ""
+team2_Player8 = ""
+team2_Player9 = ""
+team2_Player10 = ""
+team2_Player11 = ""
 
 total_players = 11
 
