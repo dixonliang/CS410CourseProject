@@ -36,7 +36,7 @@ Ideally, the result of this code will show the relative sentiment of a player's 
 
 Technically, this code can be used for any soccer game, but given the popularity and language barrier, EPL games are likely to provide the most meaningful results. Adjustments could be made for La Liga or Serie A using Spanish or Italian NLP. Please feel free to reach out as I welcome any collaboration as the code can be improved and applied to different sports or different applications all together :) .
 
-The easiest way to run through this code is by using the provided Jupyter Notebooks. A run through of the source code is provided below. 
+A run through of the source code is provided below. 
 
 ### Code Documentation
 
