@@ -33,3 +33,23 @@ Ideally, the result of this code will show the relative sentiment of a player's 
 Technically, this code can be used for any soccer game, but given the popularity and language barrier, EPL games are likely to provide the most meaningful results. Adjustments could be made for La Liga or Serie A using Spanish or Italian NLP. Please feel free to reach out as I welcome any collaboration as the code can be improved and applied to different sports or different applications all together :) .
 
 ### Code Documentation
+
+#### Introduction 
+
+Packages Needed: To begin, we need several packages installed and imported. These are: Tweepy, TextBlob, Numpy, Rank_BM25, and Matplotlib.pyplot. Documentation and links are found here: http://docs.tweepy.org/en/latest/api.html https://textblob.readthedocs.io/en/dev/api_reference.html https://numpy.org/doc/ https://pypi.org/project/rank-bm25/ https://matplotlib.org/3.3.3/api/_as_gen/matplotlib.pyplot.html
+
+Most importantly, we will need access to the Twitter API, which can be gained by having a Twitter profile. You will be provided four keys of strings of letters and numbers which you will need to enter in the box below: consumer key, consumer secret, access token, access token secret. These will be used in the below code area. 
+
+''' consumer_key = ""
+consumer_secret = ""
+access_token = ""
+access_token_secret = ""
+
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+
+api = tweepy.API(auth,wait_on_rate_limit=True)
+
+''' 
+
+#### Game Parameters
