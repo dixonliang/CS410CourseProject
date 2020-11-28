@@ -92,6 +92,9 @@ team2_Player11 = ""
 ```
 After setting the game parameters, there are a few algorithm paramters we will need to set. 
 
+
+Sentiment Analysis: 
+
 ```shell
 ### define the number of tweets we want to sort for and subjective threshold
 
@@ -104,6 +107,7 @@ date_since = "2020-11-21"
 date_until = "2020-11-22"
 ```
 
+BM25Okapi: 
 
 ```shell
 positive_terms = "assist good excellent great" # search queries, positive terms
