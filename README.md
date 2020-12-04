@@ -134,12 +134,11 @@ plot_bar_team1_sentiment():
 
 Using pyplot, this function will chart Team 1's senitment by player in the form of a horizontal bar chart. The function will take the sentiment array as mentioned above and plot the respective average for each player. If the sentiment is more towards the right, the player's sentiment for that game will be more positive. If the senitment is more towards the left, the player's sentiment for that game will be more negative. 
 
-Example:
-<img src="./team1_sentiment.png" alt="alt text" width=400 height=300>
-
 plot_bar_team2_sentiment():
 
 Same as the above but with the players for Team 2. 
+
+<img src="./team1_sentiment.png" alt="alt text" width=400 height=300>
 
 plot_bar_team1_BM25positive():
 
@@ -149,6 +148,8 @@ plot_bar_team2_BM25positive():
 
 Same as above but for Team 2. 
 
+<img src="./team1_BM25positive.png" alt="alt text" width=400 height=300>
+
 plot_bar_team1_BM25negative():
 
 Same as above but for the negative query and Team 1. 
@@ -157,15 +158,34 @@ plot_bar_team2_BM25negative():
 
 Same as above but for the negative query and Team 2. 
 
+<img src="./team1_BM25negative.png" alt="alt text" width=400 height=300>
+
 #### Text Output Functions
 
 display_tweets(team, player_number): 
 
 This function will take in two arguments, the team name and the player number (which can be referenced above on the parameters). The function will then display the ten highest and ten lowest sentiment tweets for that player. 
 
+```shell
+['RT @SiPhillipsSport: Chelsea keep the ball for about 5 minutes, thennnnn Rudiger.', 'RT @goal: Thiago Silva ❌\nHavertz ❌\nPulisic ❌\n\nRudiger ✅\nChilwell ✅\nWerner ✅\n\nChelsea reveal their team to play Newcastle 🔵\n\n#NEWCHE https:/…', '@ChelseaFC Chelsea had a clean with Rudiger and Zouma playing together. 😉 We are winning this league', 'RT @SiPhillipsSport: Chelsea keep the ball for about 5 minutes, thennnnn Rudiger.', 'NEWCASTLE 0-2 CHELSEA: GODFREY 🗣️ "The only player wey dun improve Chelsea na Mendy, ZOUMA AND RUDIGER STILL NO GET… https://t.co/TYZOd3mZ9X', 'RT @kingmali_: @ChelseaFC MOTM kante\nLovely clean sheet Mendy\nWell done Tammy\nRudiger is not fit to be a Chelsea player PERIOD!\nEmerson is…', 'RT @SiPhillipsSport: Chelsea keep the ball for about 5 minutes, thennnnn Rudiger.', 'RT @AbsoluteChelsea: Frank Lampard says Antonio Rudiger was brilliant on his first Premier League start of the season for #Chelsea against…', "Are you more confident about Chelsea's defensive options and depth than at the start of the season?\n\nhttps://t.co/enuSsURsmJ"]
+```
+
 rank_top(corpus,terms):
 
 This function is in relation to the BM25Okapi rankings. It takes in two arguments, a corpus (in this case, will be a series of tweets) and then a search query (in this case, positive or negative term array). This function will display the top ten ranked tweets in the corpus given the query. An example would be if we wanted to see the top ranked tweets for a specific player. 
+
+```shell
+['@Chelsea_Era @EBL2017 Werner was playing bumdesliga, I don’t doubt he’s got a good scoring record in that league. H… https://t.co/veBdvRxnxQ',
+ "https://t.co/cTxtOa9fGf\nMendy &amp; Chilwell both had their 'worst' game in a Chelsea shirt today, and were still excel… https://t.co/gmjF62mTX3",
+ '@AlexGoldberg_ Kovacic done ok today but gives the ball away too much in dangerous areas, against a better team Che… https://t.co/d0y3hpDjgX',
+ '@afcjxmes Kovacic was Chelsea’s worst midfielder today, gave the ball away in dangerous areas too many times, Kante… https://t.co/rPLqctpkjc',
+ "Timo Werner is 'undroppable'.\n\nN'Golo Kante is back doing what he does best.\n\nFrank Lampard is about to settle on a… https://t.co/oXxsMrxKh7",
+ "Timo Werner is 'undroppable'.\n\nN'Golo Kante is back doing what he does best.\n\nFrank Lampard is about to settle on a… https://t.co/oXxsMrxKh7",
+ 'RT @Football__Tweet: Edouard Mendy has kept 7 clean sheets in his first 9 Chelsea games.\n\nTalk about an upgrade on the most expensive goalk…',
+ '@tessderry1 Ths international break suckssss...timo chilwell mount grealish theirlegs lookd tired.....\n\nNext match… https://t.co/L57jzK0DyO',
+ 'Frank Lampard expressed his delight as Chelsea kept another clean sheet in their 0-2 win against Newcastle at St Ja… https://t.co/d3HMLpYWoX',
+ 'Saturdays added assist:\nMount (Chelsea v Newcastle) pass leading to own goal. https://t.co/xtIdUJXHLQ']
+```
 
 
 #### Helper Functions 
