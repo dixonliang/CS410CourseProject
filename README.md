@@ -117,29 +117,60 @@ positive_terms = "assist good excellent great" # search queries, positive terms
 negative_terms = "poor bad miss own awful" # negative terms
 ```
 
+The BM25Okapi portion of the code will combine all of the tweets for every player together which will they treat each tweet as a document as part of a corpus. Then using the positive array, it will then go through each document ranking it based on how many of the positive terms each tweet matches. The higher ranked the tweet is, the more relevant it is to that query. Given we are using positive terms, the idea is that the tweet is more reflective of positive results in relation to those terms during the game for the respective player. The same will be done with the negative query. Once the rankings are done, each players average ranking for each query is provided, similarily to the sentiment array above. These two arrays will then be used for charting.  
+
+BM25 incorporates search ranking concepts such as IDF (inverse document frequency), which is a filter for commonly used terms as well as TF (term frequency), which gives higher ranking for more matching of terms. A brief summary of how exactly the formula ranks can be found here: https://nlp.stanford.edu/IR-book/html/htmledition/okapi-bm25-a-non-binary-model-1.html
+
+
 #### Running the Code
 
-After setting the above parameters, the entire "maincode.py" can be run which will then output the relevant visualizations for this task. 
+After setting the above parameters, the entire "maincode.py" can be run which will then output the relevant visualizations for this task. The code will retrieve the set number of tweets for each player and then use TextBlob's sentiment analysis tool to rate the sentiment of each tweet. If the tweet crosses the set threshold, the senitment for that tweet will be used for an average of all of the sentiment for that respective player. This array of sentiments of players will then be used for our graphs below. 
+
+The functions that are used for the generation of these visualizations are listed below. 
+
+#### Visual Output Functions
+
+plot_bar_team1_sentiment(): 
+
+Using pyplot, this function will chart Team 1's senitment by player in the form of a horizontal bar chart. The function will take the sentiment array as mentioned above and plot the respective average for each player. If the sentiment is more towards the right, the player's sentiment for that game will be more positive. If the senitment is more towards the left, the player's sentiment for that game will be more negative. 
+
+plot_bar_team2_sentiment():
+
+Same as the above but with the players for Team 2. 
+
+plot_bar_team1_BM25positive():
+
+Using pyplot again, this function will chart Team 1's BM25Okapi rankings in the form of a horizontal bar chart. 
+
+plot_bar_team2_BM25positive():
+
+Same as above but for Team 2. 
+
+plot_bar_team1_BM25negative():
+
+Same as above but for the negative query and Team 1. 
+
+plot_bar_team2_BM25negative():
+
+Same as above but for the negative query and Team 2. 
+
+#### Text Output Functions
+
+display_tweets(team, player_number): 
+
+This function will take in two arguments, the team name and the player number (which can be referenced above on the parameters). The function will then display the ten highest and ten lowest sentiment tweets for that player. 
+
+rank_top(corpus,terms):
+
+This function is in relation to the BM25Okapi rankings. It takes in two arguments, a corpus (in this case, will be a series of tweets) and then a search query (in this case, positive or negative term array). This function will display the top ten ranked tweets in the corpus given the query. An example would be if we wanted to see the top ranked tweets for a specific player. 
 
 
 #### Helper Functions 
 
 sentiment_element(element): 
 
-
-#### Output Functions
-
-display_tweets(team, player_number): 
-
-plot_bar_team1_sentiment(): 
-plot_bar_team2_sentiment():
+This is a simple function that will be used for Python's sort implementation for an array. In this case, we are interested in sorting be the second element (for each entry in the serntiment array is the sentiment score) which is what this function does. 
 
 rank_scores(corpus,terms):
-rank_top(corpus,terms):
 
-plot_bar_team1_BM25positive():
-plot_bar_team2_BM25positive():
-plot_bar_team1_BM25negative():
-plot_bar_team2_BM25negative():
-
-
+This function is in relation to the BM25Okapi rankings. It takes in two arguments, a corpus (in this case, will be a series of tweets) and then a search query (in this case, positive or negative term array). It is the function that will actually use PyPi's implementation of BM25Okapi to give each tweet a rank in relation the entire corpus. Before passing into the implementation, both the corpus and term query will be tokenized. 
