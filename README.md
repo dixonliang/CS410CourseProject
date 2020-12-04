@@ -92,8 +92,7 @@ team2_Player9 = ""
 team2_Player10 = ""
 team2_Player11 = ""
 ```
-After setting the game parameters, there are a few algorithm paramters we will need to set. 
-
+After setting the game parameters, there are a few algorithm paramters we will need to set. To begin, the number of tweets that we want to retrieve is set as a parameter for the algorithm. This may also affect how quickly the algorithm runs because of limitations in the package and the free version of the Twitter API. The threshold for objectivity/subjectivity is also set. 0 is defined as purely objective and 1 is defined as subjective. Ideally for the most results, we want a low threshold, 0.10 has been suggested, but any threshold can be set. The date periods for when we want to retrieve tweets from is also se; for best results, it is suggested to only use the day of the game and the day after the game. The free version of the Twitter API limits searches to within the 7 days. 
 
 Sentiment Analysis: 
 
@@ -109,6 +108,8 @@ date_since = "2020-11-21"
 date_until = "2020-11-22"
 ```
 
+For the BM25Okapi algorithm, there are just two sets of parameters we must set. The first is the set positive terms we want to use for context. Some suggestions are in the default query already. Similarily, for the second set of parameters, it is a set of negative terms. 
+
 BM25Okapi: 
 
 ```shell
@@ -119,7 +120,6 @@ negative_terms = "poor bad miss own awful" # negative terms
 #### Running the Code
 
 After setting the above parameters, the entire "maincode.py" can be run which will then output the relevant visualizations for this task. 
-
 
 
 #### Helper Functions 
