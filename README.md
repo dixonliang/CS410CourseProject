@@ -134,6 +134,8 @@ plot_bar_team1_sentiment():
 
 Using pyplot, this function will chart Team 1's senitment by player in the form of a horizontal bar chart. The function will take the sentiment array as mentioned above and plot the respective average for each player. If the sentiment is more towards the right, the player's sentiment for that game will be more positive. If the senitment is more towards the left, the player's sentiment for that game will be more negative. 
 
+<img src="./team1_sentiment.png" alt="alt text" width=400 height=300>
+
 plot_bar_team2_sentiment():
 
 Same as the above but with the players for Team 2. 
