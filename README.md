@@ -8,6 +8,8 @@ This is the repo for my course project for CS 410 Text Information Systems for m
 
 YouTube Demo Link: https://www.youtube.com/watch?v=UuY7dO8bq0M&ab_channel=DixonLiang
 
+ChelseaLeeds_Presentation.pptx - The powerpoint presentation used in the video tutorial
+
 Project Proposal.pdf - The initial project proposal. 
 
 Progress Report.pdf - Progress Report as of 11/30/20.
