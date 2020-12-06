@@ -6,7 +6,7 @@ This is the repo for my course project for CS 410 Text Information Systems for m
 
 #### Files 
 
-YouTube Demo Link: 
+YouTube Demo Link: https://www.youtube.com/watch?v=UuY7dO8bq0M&ab_channel=DixonLiang
 
 Project Proposal.pdf - The initial project proposal. 
 
