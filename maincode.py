@@ -164,11 +164,11 @@ for i in team2_player_array: # loop through each player
 
 def display_tweets(team, player_number):
     if (team == team1):
-        print(team1_player_tweets[player_number-1][0:9]) # negative sentiment
-        print(team1_player_tweets[player_number-1][number_of_tweets-11:number_of_tweets-1]) # positive sentiment
+        print(team1_player_combined[player_number-1][0:9]) # negative sentiment
+        print(team1_player_combined[player_number-1][number_of_tweets-11:number_of_tweets-1]) # positive sentiment
     else:
-        print(team2_player_tweets[player_number-1][0:9]) # negative sentiment
-        print(team2_player_tweets[player_number-1][number_of_tweets-11:number_of_tweets-1]) # positive sentiment
+        print(team2_player_combined[player_number-1][0:9]) # negative sentiment
+        print(team2_player_combined[player_number-1][number_of_tweets-11:number_of_tweets-1]) # positive sentiment
 
 
 ### sort each senitment array and organize for plotting
