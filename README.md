@@ -20,8 +20,6 @@ Progress Report.pdf - Progress Report as of 11/30/20.
 
 maincode.py - The main source code
 
-video_demo.ipynb - The demo code / output that was used for the YouTube video tutorial 
-
 demo.ipynb - Empty demo code in Jupyter Notebook for free use
 
 Tweepy Review.docx - Review done on the Tweepy package for the course
