@@ -1,5 +1,7 @@
 # Sentiment Analysis for Soccer Games (CS 410 Course Project) and Documentation
 
+#### NOTE: You will need to provide Twitter API keys if you want to run the blank demo file. I have provided a notebook with already run code in file "12_5_20_ChelseaLeeds_Demo.ipynb" which goes along with the dem materials (video and presentation) for grading purposes to avoid having to go through the process. 
+
 ### Introduction
 
 This is the repo for my course project for CS 410 Text Information Systems for my Masters in Computer Science at University of Illinois Urbana-Champaign. The main idea of this repo is to provide the code, documentaion, and demo for a basic sentiment analysis for soccer games using Python, Tweepy, TextBlob, and BM25Okapi. **The easiest way to use this code is to use the Jupyter Notebook demo in this repo.** A video tutorial on Youtube is also provided. The source code is available as well. Please feel free to reach out to me if you would like to collaborate :) .
@@ -9,6 +11,8 @@ This is the repo for my course project for CS 410 Text Information Systems for m
 YouTube Demo Link: https://www.youtube.com/watch?v=UuY7dO8bq0M&ab_channel=DixonLiang
 
 ChelseaLeeds_Presentation.pptx - The powerpoint presentation used in the video tutorial
+
+12_5_20_ChelseaLeeds_Demo.ipynb - Demo file that goes along with the presentation and video link
 
 Project Proposal.pdf - The initial project proposal. 
 
