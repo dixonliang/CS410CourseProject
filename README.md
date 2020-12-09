@@ -1,6 +1,6 @@
 # Sentiment Analysis for Soccer Games (CS 410 Course Project) and Documentation
 
-#### NOTE: You will need to provide Twitter API keys if you want to run the blank demo file. I have provided a notebook with already run code in file "12_5_20_ChelseaLeeds_Demo.ipynb" which goes along with the dem materials (video and presentation) for grading purposes to avoid having to go through the process. 
+#### NOTE: You will need to provide Twitter API keys if you want to run the blank demo file. I have provided a notebook with already run code in file "12_5_20_ChelseaLeeds_Demo.ipynb" which goes along with the demo materials (video and presentation) for grading purposes to avoid having to go through the process. 
 
 ### Introduction
 
